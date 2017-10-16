@@ -1,0 +1,1790 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+<style type="text/css">
+    *{margin:0;padding: 0;}
+    section.darkCover{position: fixed;width: 100%;height: 100%;background-color: rgba(0,0,0,.5);z-index: 9999;left:0;top:0;}
+    section.darkCover img{width: 2rem;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);}
+</style>
+<title>i志愿</title>
+
+<!--[if IE]>
+    <script src="/js/html5.js"></script>
+    <![endif]-->
+<link href="/css/space.css" rel="stylesheet" type="text/css" />
+<link href="/css/style.css" rel="stylesheet" type="text/css" /> 
+<link href="/css/style_wlwm.css" rel="stylesheet" type="text/css" />
+<link href="/css/personSpacecss.css" rel="stylesheet" type="text/css" /> 
+<link href="/css/common/head_css.css" rel="stylesheet" type="text/css" /> 
+<link href="/js/common/jquery.pager/jquery.pager.css" rel="stylesheet" type="text/css" />
+<link id="skin" rel="stylesheet"href="/js/common/jBox2.3/Skins/ps/jbox.css" />
+<link rel="stylesheet" type="text/css" href="/izyz-tanchuang/css/izyz_tanchuang.css" />
+<link rel="shortcut icon" href="/favicon.ico" />
+
+<link href="/css/newRegistercss/animation.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/common/jquery.pager/jquery.pager.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/common/jquery.form.js"></script>
+<script type="text/javascript" src="/js/common/jBox2.3/jBox-2.3.min.js"></script>
+<script type="text/javascript" src="/js/common/jBox2.3/i18n/jquery.jBox-zh-CN.js"></script>
+<script type="text/javascript" src="/js/common/common.js"></script>
+<script type="text/javascript" src="/izyz-tanchuang/js/izyz_tanchuang.js"></script>
+<script type="text/javascript">
+        !function(n){var e=n.document,t=e.documentElement,i=750,d=i/50,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);
+</script>
+<script type="text/javascript">
+	var isbankApply = false;
+	$(function(){
+		if(isbankApply == false){
+		  loadpopup();
+		}
+	});
+ 	function loadpopup(){
+	    if(getCookie("isfirst")!='yes'){
+	    	openpopup();
+	    	setCookie("isfirst", "yes", 1);
+	    }
+	}
+ 	//弹出窗口的方法
+	function openpopup(){
+	    $("#ceshi").show(); 
+	}
+	function get_cookie(Name){
+	   var search = Name + "="
+	   var returnvalue = "";
+	   if (document.cookie.length > 0) {
+	     offset = document.cookie.indexOf(search)
+	     if (offset != -1) {
+	         // if cookie exists
+	        offset += search.length
+	         // set index of beginning of value
+	        end = document.cookie.indexOf(";", offset);
+	         // set index of end of cookie value
+	        if (end == -1)
+	           end = document.cookie.length;
+	        returnvalue=unescape(document.cookie.substring(offset, end))
+	      }
+	   } 
+	   return returnvalue;
+	}
+	
+	//设置cookie
+	function setCookie(cname, cvalue, exdays) {
+	    var d = new Date();
+	    d.setTime(d.getTime() + (exdays*2*60*60*1000));
+	    var expires = "expires="+d.toUTCString();
+	    document.cookie = cname + "=" + cvalue + "; " + expires;
+	}
+	//获取cookie
+	function getCookie(cname) {
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i=0; i<ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0)==' ') c = c.substring(1);
+	        if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+	    }
+	    return "";
+	}
+	//清除cookie  
+	function clearCookie(name) {  
+	    setCookie(name, "", -1);  
+	}
+	function changePortrait(portrait, path) {
+		//读取图片方式更改为直接读取备用图片，不在尝试读取团市委网站的图片库.
+		/*if(new String(portrait.src).indexOf("125cn.net") >= 0){
+			portrait.src = "/images/site/gq.jpg";
+		}else{
+			portrait.src = "http://125cn.net/"+path;
+		}*/
+		portrait.src = "/images/site/gq.jpg";
+		portrait.onerror=null;//控制不要一直跳动
+	}
+</script>
+<!-- 弹出头像javascripte -->
+<script type="text/javascript">
+	function popupDivImg(div_id, userid, loadtype) {
+
+		//添加并显示遮罩层   
+		showbackgroupPopup();
+		//美图秀秀位置
+			
+		showMeituxiuxiuPosition(div_id);
+		//加载美图秀秀编辑器
+		
+		addMeituxiuxiuEdit(userid, loadtype);
+	}
+
+	//添加并显示遮罩层  
+	function showbackgroupPopup() {
+		var windowHeight = $(window).height();
+		$("<div id='backgroundPopup'></div>").css({
+			"height" : windowHeight,
+			"opacity" : "0.7"
+		}).appendTo("body").show();
+	}
+
+	//显示美图秀秀位置
+	function showMeituxiuxiuPosition(div_id) {
+		var windowWidth = $(window).width();
+		var windowHeight = $(window).height();
+		var div_obj = $("#" + div_id);
+		div_obj.css({
+			"position" : "absolute",
+			"left": windowWidth * 0.5 - 328,
+			"top": windowHeight * 0.5 - 225
+		}).show();
+
+	}
+
+	//加载美图秀秀编辑器
+	function addMeituxiuxiuEdit(userid, loadtype) {
+		var thisSysPath = document.getElementById("path").value;		
+		var url = thisSysPath + "/mission/attachment/toxiuxiuEditor?xxtype=1&userid="
+				+ userid + "&loadtype=" + loadtype;
+		$.ajax({
+			url : url,
+			async : true,
+			timeout : 9999,
+			type : "POST",
+			success : function(datas) {
+				$("#meituxiuxiuImage").html(datas);
+							//document.write(datas);
+				//document.close();
+			}
+		});
+	}
+    
+	////关闭美图秀秀M4（头像编辑器）
+	function hideDivImg(div_id) {
+		$("#backgroundPopup").remove();
+		$("#" + div_id).hide();
+	}
+	
+/*	//关注
+	function toFollow(obj){
+		$.post('/personal/personalSpace!toFollow.action',{'followUserId': ''}, function(data){
+			if(data.success == 0){
+				$(obj).parent().css("display","none");
+				$(obj).parent().next().css("display","inline");
+				alert(data.msg);
+			}else{
+				alert(data.msg);
+			}
+		});
+	}
+	
+	//取消关注
+	function noFollow(obj){
+		$.post('/personal/personalSpace!noFollow.action',{'followUserId': ''}, function(data){
+			if(data.success == 0){
+				$(obj).parent().css("display","none");
+				$(obj).parent().prev().css("display","inline");
+				alert(data.msg);
+			}else{
+				alert(data.msg);
+			}
+		});
+	}*/
+	
+	function getCookie(name){ 
+		var strCookie=document.cookie; 
+		strCookie = strCookie.replace(/\"/g,"");
+		var arrCookie=strCookie.split("; ");
+		for(var i=0;i<arrCookie.length;i++){
+			var arr=arrCookie[i].split("="); 
+			if(arr[0]==name)return arr[1]; 
+		}
+		return ""; 
+	 }
+	
+	function oneCenterSkip(){
+		var localAccessToken = getCookie('__accessToken');
+		if(localAccessToken){
+			$.ajax({
+ 		    	url:"/usmain/usMain/oneCenterSkip",
+ 		    	type:"POST",
+ 		    	data:{accessToken:localAccessToken},
+ 		    	async:false,
+ 		    	dataType:"json",
+ 		    	success:function(data){
+ 		    		var Data=data;
+ 		    		if(Data.status== 1){
+ 		    			window.location.href = "https://www.izyz.org.cn/account/personalCenter.html";
+ 		    		}else{
+ 		    			alert(Data.message);
+ 		    		}
+  		    	},
+  		    	error:function(){
+  		    		alert('服务器繁忙，请联系管理员!');
+  		    	}
+  	      });
+		}
+	}
+	
+</script>
+<!-- 弹出美图秀秀样式 -->
+<style type="text/css">
+/*pop mask*/
+#backgroundPopup {
+	display: none;
+	position: fixed;
+	_position: absolute; /* hack for internet explorer 6*/
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background: #000000;
+	border: 1px solid #cecece;
+	z-index: 3;
+}
+
+.mbox {
+	display: none;
+	font-size: 14px;
+    text-align: right;
+	z-index: 999;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	color: #333;
+}
+
+.mbox {
+	background-color: #fff
+}
+
+.mbox .titbar {
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	background-color: #ddd;
+}
+
+.t_left {
+	float: left
+}
+
+.r_left {
+	float: right
+}
+</style>
+</head>
+<style>
+table td {
+	border: none
+}
+
+.space_0 {
+	float: left;
+	height: 45px;
+	width: 190px;
+}
+</style>
+<body>
+	<div id="uploadProfilePhoto" class="mbox" >
+		<div  id="meituxiuxiuImage" >
+		</div>
+	</div>
+	<!--头像设置替换气泡-->
+	<div class="new_pic hidden" onclick="closeAllHint();"></div>
+	
+	<!--头像的坐标-->
+	<div class="new-nav hidden" onclick="closePhotoHint();">
+		<a href="javascript:void(0);" onclick="closePhotoHint();"></a>
+	</div>
+
+     <!--经纬度的坐标-->
+	<div class="zz-nav hidden" onclick="closeCoordinateHint();">
+		<a href="javascript:void(0);" onclick="closeCoordinateHint();"></a>
+	</div>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+      <!-- 分站导航srart -->
+      <script type="text/javascript">
+	     
+     		//获取所有省份
+     	   function selectProvince(){
+     	    	var ds=[];
+     	      $.ajax({
+     		    	url:"/site/terminalindex/getProvince",
+     		    	type:"POST",
+     		    	cache: true,//缓存方式读取数据
+     		    	data:{districtName:'中国',level:2},
+     		    	dataType:"json",
+     		    	success:function(data){
+     		    		console.log(data);
+     		          if(data != null){
+     		               $("#city").empty(); 
+                          $("#city").append("<ul></ul>");  
+               		     var index = 0;
+               		   for (var i = 0; i < data.length; i++){
+               		     var item = data[i];
+               		     // window.location.href='/orgspace/orgspace/index?districtId='+url;
+               		     if(ds[index] == undefined){//新的站点首页
+//                		    	if(item.districtId == "b0dc9771d14211e18718000aebf5352e"){//志愿广东
+//                		    		ds[index]= "<div class='fl'><a href='http://www.gdzyz.cn/'>" + item.districtName + "</a></div>";
+//           		    		 }else{
+//           		    			ds[index]= "<div class='fl'><a href='/orgspace/orgspace/index?districtId="+ item.districtId +"'>" + item.districtName + "</a></div>";
+//           		    		 }
+               		    	ds[index]= "<div class='fl'><a href='/orgspace/orgspace/index?districtId="+ item.districtId +"'>" + item.districtName + "</a></div>";
+          		    		 
+          		    	 }else{
+//           		    		if(item.districtId == "b0dc9771d14211e18718000aebf5352e"){//志愿广东
+//           		    			ds[index]= ds[index]+"<div class='fl'><a href='http://www.gdzyz.cn/'>" + item.districtName + "</a></div>";
+//           		    		 }else{
+//           		    			ds[index]= ds[index]+"<div class='fl'><a href='/orgspace/orgspace/index?districtId="+ item.districtId +"'>" + item.districtName + "</a></div>";
+//           		    		 }
+          		    		ds[index]= ds[index]+"<div class='fl'><a href='/orgspace/orgspace/index?districtId="+ item.districtId +"'>" + item.districtName + "</a></div>";
+          		    		 
+          		    	 }
+               		    
+               		  }
+     		    	}
+     		          $("#province_list").html(ds[0]);
+     		     }  
+     	      });
+     	      $("#selectRegion").hide(0);
+     	      $("#city").show();
+     	    }
+     	     
+      </script>
+     
+  <!--top_bar over--> 
+  
+  <!-- nav -->
+  <div id="daohang_box_provie" class="daohang_box_provie" style="display:none;">
+        <!-- 搜索省名的导航 -->
+        <div class="daohang_samll_provie">
+        <div class="daohang_jiantou_provie">
+            <img src="/images/newRegisterimages/images/jiantou.png" alt="" />
+        </div>
+        <div class="daohang_detail">
+            <div class="daohang_btn_provie">
+            	<ul class="daohang_btn_l_provie clearfix fl">
+                    <li class="fnt14 fl"  style="background: rgb(233, 87, 63) none repeat scroll 0% 0%; color: rgb(255, 255, 255);"><a href="/index?headType=shouye" style="color:#fff;">中国</a></li>
+                </ul>
+                <ul class="daohang_btn_r_provie fr clearfix">
+                </ul>
+            </div>     
+        </div>
+        <div class="daohang_search_provie clearfix" style="display:none">
+            <input type="text" class="daohang_shuru_provie fl" placeholder="请输入关键字！"/>
+            <a href="" class="daohang_sure_provie fr fnt14">确定</a>
+        </div>
+        <div class="daohang_liebiao_provie">
+            <ol class="liebiao_box_provie clearfix">
+                <li class="fl clearfix" id="province_list">
+                    
+                </li>
+                
+            </ol>
+        </div>
+    </div>
+    
+ </div>
+  
+  <script type="text/javascript">
+  	 var navFlag=false;
+  	function hideDaohangBox(){
+  		if(navFlag==true){
+  			$('#daohang_box_provie').hide();
+  			navFlag=false;
+  		}
+  	}
+  	 $(function(){
+			$('.othersiteChina').hover(function(){
+				$(this).addClass('snlocatxi');
+				 navFlag=true;//可以启动定时关闭
+				 $('#daohang_box_provie').show();
+				 selectProvince();
+			},function(){
+				$(this).removeClass('snlocatxi');
+				if(navFlag==true){
+					setTimeout("hideDaohangBox()",2000);
+				}
+			});
+			
+			$('#daohang_box_provie').hover(function(){
+				navFlag=false;
+			},function(){
+				$('#daohang_box_provie').hide();
+	  			navFlag=false;
+			});
+		}); 
+  	 
+           </script> 
+
+
+
+
+
+
+
+
+
+
+	
+	
+	<!-- 新版导航 -->
+	<link rel="stylesheet" type="text/css" href="/css/newRegistercss/fenzhandaohang.css">
+	<link rel="stylesheet" type="text/css" href="/css/newRegistercss/public_style.css">
+	<!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" /> -->
+	<script type="text/javascript" src="/js/newRegisterjs/slideFocus.js"></script>
+	<script type="text/javascript" src="/js/newRegisterjs/numberUpDown.js"></script>
+	<script type="text/javascript" src="/js/compatibleJs/html5shiv.min.js"></script>
+	
+	<meta http-equiv= "X-UA-Compatible" content = "IE=edge,chrome=1"/>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+	
+	
+	
+	
+	<script type="text/javascript"> 
+	  
+      //平台、设备和操作系统 
+      var system = { 
+          win: false, 
+          mac: false, 
+          xll: false, 
+          ipad:false 
+      }; 
+      //检测平台 
+      var p = navigator.platform; 
+      system.win = p.indexOf("Win") == 0; 
+      system.mac = p.indexOf("Mac") == 0; 
+      system.x11 = (p == "X11") || (p.indexOf("Linux") == 0); 
+      system.ipad = (navigator.userAgent.match(/iPad/i) != null)?true:false; 
+      //跳转语句，如果是手机访问就自动跳转到wap.baidu.com页面 
+      if (system.win || system.mac || system.xll||system.ipad) { 
+    	  
+      } else { 
+    	  chooseFlag = 'null'
+   	      if(chooseFlag != 'PC'){
+  	      	window.location.href = "/jsp/common/choosePCorMobile.jsp";
+   	      }
+      } 
+      
+      
+      
+      function crosLoginCookie(uid){
+ 		 $(document.body).append('<div id="loginCrossClient_div" style="display:none;"></div>');
+ 		 var validDomains = new Array('www.izyz.org','www.fsvolunteer.com','www.gdzyz.cn');
+ 		 for(var i=0;i<validDomains.length;i++){
+ 		 $("#loginCrossClient_div").append('<iframe name="cross_iframe'+i+'" id="cross_iframe'+i+'" src="http://'+validDomains[i]+'/cross/crosLoginCookie?crossId='+uid+'"></iframe>');
+//  		 	$("#loginCrossClient_div").append('<iframe name="cross_iframe'+i+'" id="cross_iframe'+i+'" src="http://'+validDomains[i]+':8082/cczyz/cross/crosLoginCookie?crossId='+uid+'"></iframe>');//test
+ 		 }
+ 		
+ 		 setTimeout(function(){
+ 			 $("#loginCrossClient_div").remove();
+ 		 },3000);
+ 	 }
+      
+      /**
+      * checklog
+      */
+      function crosLogin(){
+    	  //保存
+    	  $.ajax({ 
+				type:"POST",
+				url:"/cross/crosLoginClient.do",
+//  				url:"http://a.izyz.org:8082/cczyz/cross/crosLoginClient.do",
+				data:"",
+				dataType:"json",
+				success:function(data) {
+					if('1'==data.success){
+						//alert("同步成功!");
+					}else{
+						//alert("同步="+data.data);
+					}
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					
+				}
+			});
+      }
+      
+      	
+		
+	
+    </script> 
+
+  	
+  <!--top_bar-->
+  <section class="top_bar2" style="background-color:#da4453;">
+    <article class="w1200">
+      
+      	
+      		<div class="logo2"><a href="/index"><img src="/images/newRegisterimages/logo.png" width="auto" height="30" alt=""/></a></div>
+      	
+      	
+      	
+      	
+      	
+      
+      <nav class="NavBox2">
+        <ul>
+          
+          	
+          		<li><span><a href="/index" class="">首页</a></span></li>
+          	
+          	
+          	
+          
+          
+          
+          		<li><span><a href="/mission/mission/list?districtId=&headType=">志愿活动</a></span></li>
+		        <li><span><a href="/orgspace/orgspace/orgindex?districtId=&headType=&revision=" >志愿组织</a></span></li>
+		        <li><span><a href="/mission/mission/qztyList?districtId=&headType=&revision=" >亲子体验</a></span></li>
+		        <li><span><a href="/publicity/publicity/searchPublicity?districtId=&headType=">时长公示</a></span></li>
+ 		     	    
+		        <li class="zyz_card" style="position: relative;">
+		        	<span><a href="/card/applycardDetail.do?type=pc">志愿者证</a></span>
+		        	<ul style="position:absolute;left:-28px;top:40px;z-index: 10;width:110px;display:none;">
+		        		<li style="margin-right: 0px;width: 100%;border-bottom: 1px solid #fff;text-align: center;"><a href="/card/applycardDetail.do?type=pc">申请志愿者证</a></li>
+
+		        	</ul>
+	        	</li>
+ 	        	 
+	        	<!-- <li><span><a href="javascript:;">证书查询</a></span></li> -->
+		        <li><span><a href="/site/pagemanager/findArticleList?categoryKey=help_center&articleCategory=48&districtId=&headType=shouye">帮助中心</a></span></li>
+		  	
+          <!-- <li><span><a href="/site/volunteerCulture!culture.do?categoryKey=&districtId=&headType=&revision=" >帮助中心</a></span></li>  -->
+          
+        </ul>
+      </nav>
+      <!-- 志愿者证二级导航 -->
+      <script type="text/javascript">
+	      $(".zyz_card").mouseenter(function(){
+	  		$(".zyz_card ul").css("display","block");
+	  	 }).mouseleave(function(){
+	  		$(".zyz_card ul").css("display","none");
+	  	 });
+      </script>
+      <!-- 分站导航srart -->
+      <script type="text/javascript" language="javaScript">
+	      var ds=[];
+	      var ds_index = 0;//行业第几页
+	      var hy=[];
+	      var hy_index = 0;//行业第几页
+	      var gx=[];
+	      var gx_index = 0;//行业第几页
+	      
+	      var currDistrictId = "";
+	      
+	      //设置地市
+	      function setDishiItem(i,index,item){
+   		      if(ds[index] == undefined){//新的站点首页
+   		    	 ds[index]='';
+   		      }
+   		      if(i%3==0){
+ 		    	 ds[index] = ds[index]+'<div class="fl">';
+	   		  }
+   		      if(item.orgUrl == 'empty'){//二级域名
+   		    	ds[index]= ds[index]+'<a  href="/site/terminalindex/terminalIndex?districtId='+ item.districtId +'">' + item.districtName + '</a>';
+	   		  }else{
+			    ds[index]= ds[index]+'<a  href="http://'+item.orgUrl+'/index?districtId='+ item.districtId +'">' + item.districtName + '</a>';
+	   		  }
+			   //ds[index]= ds[index]+'<a  href="/site/terminalindex/terminalIndex?districtId='+ item.districtId +'">' + item.districtName + '</a>';
+		      
+	   		  
+		      
+   		   	  if(i%3==2){
+   		   		 ds[index] = ds[index]+'</div>';
+   		   	  }
+	      }
+	      
+	    //地市
+    	   function selectCity(){
+    	      ds=[];
+    	      $.ajax({
+    		    	url:"/site/terminalindex/getArea",
+    		    	type:"POST",
+    		    	cache: true,//缓存方式读取数据
+    		    	data:{parentId:currDistrictId,districtName:'地市',level:3},
+    		    	dataType:"json",
+    		    	success:function(data){
+    		    		 if(data != null){
+       		               $("#nav_city").html(''); 
+                             var index = 0;
+                             var log = 0;
+                   		   for (var i = 0; i < data.length; i++){
+                   		     var item = data[i];
+                   		     setDishiItem(i,index,item);
+                   		     log = i+1;
+                   			 if(log%21==0){
+                   				ds[index]= ds[index]+'<img class="pic_didian" src="/images/newRegisterimages/images/didian.png"alt="" />';
+                       		    index++;
+                       		 }
+                   		  }
+                   		  if(log%3>0){//最后一页
+                   			 ds[index]= ds[index]+'</div>';
+                   			 ds[index]= ds[index]+'<img class="pic_didian" src="/images/newRegisterimages/images/didian.png"alt="" />';
+                   		  }
+                   		  ds_index = 0;//行业第一页
+                   		  $("#nav_city").html(ds[0]);//第一页
+       		    	  }
+       		     }  
+       	      });
+       		  $(".btn_sousuo").hide();
+       		  $(".daohang_search").hide();
+    	    }
+    	    
+    	    function closeCity(){
+    	      $("#city").hide();
+    	    }
+
+    	    //设置行业
+  	      function setIndustryItem(i,index,item){
+  	    	 var districtName = item.districtName;
+	    	  if(districtName.length>10){
+	    		  districtName=districtName.substring(0,10)+"...";
+	    	  }
+    	    	if(hy[index] == undefined){//新的站点首页
+     		    	  hy[index]='';
+     		      }
+     		      if(i%4==0){
+     		    	  hy[index] = hy[index]+'<div class="fl">';
+  	   		  }
+     		     // hy[index]= hy[index]+'<a  href="/site/terminalindex/terminalIndex?districtId='+ item.districtId +'"  title="'+item.districtName+'">' + districtName + '</a>';
+     		      if(item.orgUrl == 'empty'){//二级域名
+        		    hy[index]= hy[index]+'<a  href="/site/terminalindex/terminalIndex?districtId='+ item.districtId +'" title="'+item.districtName+'">' + districtName + '</a>';
+     	   		  }else{
+     			    hy[index]= hy[index]+'<a  href="http://'+item.orgUrl+'/index?districtId='+ item.districtId +'" title="'+item.districtName+'">' + districtName + '</a>';
+     	   		  }
+     		   	  if(i%4==3){
+     		   		  hy[index] = hy[index]+'</div>';
+     		   	  }
+  	      }
+    	    //行业
+    	    function selectIndustry(){
+    	      hy=[];
+    	      $.ajax({
+    		    	url:"/site/terminalindex/getArea",
+    		    	type:"POST",
+    		    	cache: true,//缓存方式读取数据
+    		    	data:{parentId:currDistrictId,districtName:'行业',level:3},
+    		    	dataType:"json",
+    		    	success:function(data){
+    		    		if(data != null){
+     		    			$("#nav_Industry").html(''); 
+     		    			var index = 0;
+     		    			var log = 0;
+     		    			for (var i = 0; i < data.length; i++){
+     		    				var item = data[i];
+     		    				setIndustryItem(i,index,item);
+     		    				
+     		    				log = i+1;
+     		    				if(log%12==0){
+     		    					index++;
+     		    				}
+     		    			}
+     		    			if(log%4>0){//最后一页
+                    			 hy[index]= hy[index]+'</div>';
+     		    			}
+     		    			var hy_index = 0;//行业第一页
+     		    			$("#nav_Industry").html(hy[0]);
+     		    		}
+     		    	}  
+     	      });
+     	      $(".btn_sousuo").hide();
+    		  $(".daohang_search").hide();
+    	    }
+    	     
+    	    
+    	    //设置高校
+    	      function setUniversityItem(i,index,item){
+    	    	
+    	    	  var districtName = item.districtName;
+    	    	  if(districtName.length>10){
+    	    		  districtName=districtName.substring(0,10)+"...";
+    	    	  }
+       		      if(gx[index] == undefined){//新的站点首页
+       		    	  gx[index]='';
+       		      }
+       		      if(i%6==0){
+       		    	  gx[index] = gx[index]+'<div class="fl">';
+    	   		  	  }
+       		      //gx[index]= gx[index]+'<a  href="/site/terminalindex/terminalIndex?districtId='+ item.districtId +'"  title="'+item.districtName+'">' + districtName + '</a>';
+	       		  if(item.orgUrl == 'empty'){//二级域名
+	       		    gx[index]= gx[index]+'<a  href="/site/terminalindex/terminalIndex?districtId='+ item.districtId +'" title="'+item.districtName+'">' + districtName + '</a>';
+    	   		  }else{
+    			    gx[index]= gx[index]+'<a  href="http://'+item.orgUrl+'/index?districtId='+ item.districtId +'" title="'+item.districtName+'">' + districtName + '</a>';
+    	   		  }
+       		   	  if(i%6==5){
+       		   		  gx[index] = gx[index]+'</div>';
+       		   	  }
+       	   }
+    	    //高校
+    	    function selectUniversity(flag){
+    	    	var schoolname = $("#schoolName").val();
+    	    	gx=[];
+    	    	if(flag==1){//使用缓存方式
+    	    		$.ajax({
+        		    	url:"/site/terminalindex/getArea",
+        		    	type:"POST",
+        		    	cache: true,//缓存方式读取数据
+        		    	data:{parentId:currDistrictId,districtName:'高校',level:3,schoolName : schoolname},
+        		    	dataType:"json",
+        		    	success:function(data){
+        		    		if(data != null){
+         		    			$("#nav_University").html('');
+         		    			var index = 0;
+         		    			var log = 0;
+         		    			for (var i = 0; i < data.length; i++){  
+         		    				var item = data[i];
+         		    				setUniversityItem(i,index,item);
+         		    				
+                        			log = i+1;
+                        			if(log%24==0){
+                        				index++;
+                        			}
+                        		}
+         		    			if(log%6>0){
+         		    				gx[index] = gx[index]+'</div>';
+         		     		   	}
+         		    			var gx_index = 0;//行业第一页
+         		    			$("#nav_University").html(gx[0]);
+        		    	}
+        		     }  
+        	      });
+    	    	
+    	    	
+    	    	}else{//使用实时方式
+    	    		$.ajax({
+        		    	url:"/site/terminalindex/getArea",
+        		    	type:"POST",
+        		    	data:{parentId:currDistrictId,districtName:'高校',level:3,schoolName : schoolname},
+        		    	dataType:"json",
+        		    	success:function(data){
+        		    		if(data != null){
+         		    			$("#nav_University").html('');
+         		    			var index = 0;
+         		    			var log = 0;
+         		    			for (var i = 0; i < data.length; i++){  
+         		    				var item = data[i];
+         		    				setUniversityItem(i,index,item);
+         		    				
+                        			log = i+1;
+                        			if(log%24==0){
+                        				index++;
+                        			}
+                        		}
+         		    			if(log%6>0){
+         		    				gx[index] = gx[index]+'</div>';
+         		     		   	}
+         		    			var gx_index = 0;//行业第一页
+         		    			$("#nav_University").html(gx[0]);
+        		    	}
+        		     }  
+        	      });
+    	    	}
+    	      
+    	      $("#selectRegion").hide(0);
+    	      $("#city").show();
+    	    }
+     	    
+     	    
+     	    
+    	//登录
+	  	function login11() {
+			//当前url，用于登录之后的跳转
+			  var url=window.location.href;
+			  window.location.href="/site/userLogin/preLogin";
+			  
+		}
+		//退出
+	  	function logout() {
+			//当前url，用于退出登录之后的跳转
+// 			  var url=window.location.host;
+// 			  url ="http://"+url+"/logoutCAS.action";
+
+				
+				$(document.body).append('<div id="logOutCrossClient_div" style="display:none;"></div>');
+		  		 var validDomains = new Array('www.izyz.org','www.fsvolunteer.com','www.gdzyz.cn');
+		  		 
+		  		 for(var i=0;i<validDomains.length;i++){
+		   		 $("#logOutCrossClient_div").append('<iframe name="cross_iframe'+i+'" id="cross_iframe'+i+'" src="http://'+validDomains[i]+'/cross/crosLogOut.do""></iframe>');
+// 		  		 	$("#logOutCrossClient_div").append('<iframe name="cross_iframe'+i+'" id="cross_iframe'+i+'" src="http://'+validDomains[i]+':8082/cczyz/cross/crosLogOut.do"></iframe>');//test
+		  		 }
+		  		 setTimeout(function(){
+		  			 $("#logOutCrossClient_div").remove();
+		  			 
+		  			 window.location.href='/site/userLogin/loginOut';
+		  		 },3000);
+		}
+      </script>
+      <aside class="RightLogin">
+          <ul>
+
+			
+              <!-- class="othersiteChina" -->
+               <li  style="position: relative;">
+                <a href="/orgspace/orgspace/index?districtId=" style="color:#fff;">
+                  <img src="/images/newRegisterimages/Navigation_ico.png" width="12" height="14" alt=""/>
+              	</a>
+              <!-- class="othersite"  -->
+              </li>
+              <li class="othersite" style="position: relative;">分站导航<span class="enterOtherSite"></span>
+                
+              </li> 
+              
+              
+              <li class="loginshow" style="position:relative;">
+              		<!-- 登陆前显示 -->
+              		<!-- <s:if test="#session.user == null">
+		              <a href="javascript:void(0);" onclick="javascript:login11();return false;" class="yszzxi">登录</a>
+		             </s:if> -->
+		             
+						
+							<DIV STYLE="width: 74px; height: 26px; border: 0px;overflow: hidden; text-overflow:ellipsis">
+							<a href="/usmain/usMain/list?type=weiboList&districtId=" target="_blank" style="color:#fff;">欢迎&nbsp;林康颖</a>	
+					     	</DIV>
+					     	
+					 
+					 
+              		<!-- 登陆后显示 -->
+              		<!-- 登录下拉框 -->
+              		<ul style="position:absolute; left: -15px; top: 40px; z-index:10;display:none; min-width: 70px;">
+		        		<li style="margin-right: 0px;border-bottom: 1px solid #fff;text-align: center;"><a id="loginTagA" >一号通登录</a><li>
+		        		<li style="margin-right: 0px;text-align: center;"><a href="#" onclick="javascript:login11();return false;">本系统登录</a><li>
+		        	</ul>
+              		
+              		
+              		
+					
+					
+					
+              </li>
+              <li style="padding-left:0px;padding-right:0px;">
+              <!-- 登陆前显示 -->
+              		<!-- <s:if test="#session.user == null">
+              		<a href="javascript:void(0);" onclick="popupDiv('popbox')" class="yszzxi" style="padding-left:0px;padding-right:0px;">注册</a>
+              		</s:if> -->
+              		
+						<a href="javascript:void(0);" onclick="logout();return false;" class="yszzxi">退出</a>
+					
+              <!-- 登陆后显示 -->
+              		<!-- <a href="#"class="yszzxi">退出</a> -->
+              		
+              </li>
+          </ul>
+      </aside>
+    </article>
+  </section>
+  <!--top_bar over--> 
+  <!-- nav -->
+  <div id="daohang_box" class="daohang_box" style="display:none;">
+        <div class="daohang_jiantou">
+            <img src="/images/newRegisterimages/images/jiantou.png" alt="" />
+        </div>
+        <div class="daohang_detail">
+            <div class="daohang_btn">
+                <ul class="daohang_btn_l clearfix fl">
+                    <li class="fnt14 fl">地市</li>
+                    <li class="fnt14 fl m_left10">行业</li>
+                    <li class="fnt14 fl m_left10">高校</li>
+                </ul>
+                <ul class="daohang_btn_r fr clearfix">
+                    <li class="btn_sousuo fl " style="display:none;"></li>
+                    <li class="btn_left fl" onclick="nav_prev_btn();"></li>
+                    <li class="btn_right fl" onclick="nav_next_btn();"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="daohang_search clearfix" style="display:none;">
+            <input type="text" id="schoolName" class="daohang_shuru fl" placeholder="请输入关键字！"/>
+            <a onclick="selectUniversity(0)" href="javascript:void(0);" class="daohang_sure fr fnt14">确定</a>
+        </div>
+        <div class="daohang_liebiao">
+            <ol class="liebiao_box clearfix">
+                <li id="nav_city" clsaa="fl clearfix"style="display:block;position:relative;">
+                    <!-- 地市 -->
+<!--                     <img class="pic_didian" src="newRegisterimages/images/didian.png"alt="" /> -->
+                </li>
+                <li id="nav_Industry" clsaa="fl clearfix "style="display:none">
+                	<!-- 行业 -->
+                </li>
+                <li id="nav_University" clsaa="fl clearfix" style="display:none;">
+                    <!-- 高校 -->
+                </li>
+            </ol>
+        </div>
+     </div>
+  <script type="text/javascript">
+  	var navFlag=false;
+  	var nav_crt_index = 0;//当前点中的地市、行业、高校
+	function hideDaohangBox(){
+		if(navFlag==true){
+			$('#daohang_box').hide();
+			navFlag=false;
+		}
+	}
+  	//后
+  	function nav_next_btn(){
+  		
+  		if(nav_crt_index == 0){//地市
+  			++ds_index;
+  			if(Number(ds_index)>=ds.length){//当前页索引如果大于等于最后一页，则改成最后一页，ls.length为ls的个数
+  				ds_index = ds.length-1;
+  				return;//返回，下面代码不执行下去
+  			}
+  			$("#nav_city").html(ds[ds_index]);
+  		}else if(nav_crt_index == 1){//行业
+  			++hy_index;
+  			if(Number(hy_index)>=hy.length){//当前页索引如果大于等于最后一页，则改成最后一页，ls.length为ls的个数
+  				hy_index = hy.length-1;
+  				return;//返回，下面代码不执行下去
+  			}
+  			$("#nav_Industry").html(hy[hy_index]);
+  		}else if(nav_crt_index == 2){//高校
+  			++gx_index;
+  			if(Number(gx_index)>=gx.length){//当前页索引如果大于等于最后一页，则改成最后一页，ls.length为ls的个数
+  				gx_index = gx.length-1;
+  				return;//返回，下面代码不执行下去
+  			}
+  			$("#nav_University").html(gx[gx_index]);
+  		}
+  	}
+  	//前
+  	function nav_prev_btn(){
+  		if(nav_crt_index == 0){//地市
+  			--ds_index;
+  	 		if(Number(ds_index)<0){//当前页索引如果小于0，则改成第0页
+  	 			ds_index = 0;return;
+  	 		}
+  	 		$("#nav_city").html(ds[ds_index]);
+  		}else if(nav_crt_index == 1){//行业
+  			--hy_index;
+  			if(Number(hy_index)<0){//当前页索引如果小于0，则改成第0页
+  				hy_index = 0;return;
+  			}
+  			$("#nav_Industry").html(hy[hy_index]);
+  		}else if(nav_crt_index == 2){//高校
+  			--gx_index;
+  			if(Number(gx_index)<0){//当前页索引如果小于0，则改成第0页
+  				gx_index = 0;return;
+  			}
+  			$("#nav_University").html(gx[gx_index]);
+  		}
+  	}
+		
+		
+	 $(function(){
+		 //登录下拉框//
+		 var isLogin = true;
+  		 var districtId = 'bba9a7e233c479080133cfc20a590304';
+		 if(!isLogin || districtId == ''){
+			  $(".loginshow").mouseenter(function(){
+			  		$(".loginshow ul").css("display","block");
+			  	 }).mouseleave(function(){
+			  		$(".loginshow ul").css("display","none");
+			  	 });
+		 }
+			$('.othersite').hover(function(){
+				$(this).addClass('snlocatxi');
+//				 selectCity();
+//	      		 selectIndustry();
+//	      		 selectUniversity(1);
+				 navFlag=true;//可以启动定时关闭
+				 $('#daohang_box').show();
+				 
+			},function(){
+				$(this).removeClass('snlocatxi');
+				if(navFlag==true){
+					setTimeout("hideDaohangBox()",2000);
+				}
+			});
+			
+			$('#daohang_box').hover(function(){
+				navFlag=false;
+			},function(){
+				navFlag=true;
+				setTimeout("hideDaohangBox()",800);
+			});
+			
+			
+			//点击菜单，出现相应的页面
+		    $('.daohang_btn_l li').click(function(event) {
+		        nav_crt_index = $(this).index();//0,1,2
+		        //点击地市、行业、高校
+		        if(nav_crt_index==0){
+		        	selectCity();
+		        }else if(nav_crt_index==1){
+		        	selectIndustry();
+		        }else if(nav_crt_index==2){
+		        	selectUniversity(1);
+		        }
+		    	$(this).css({"background":"#e9573f","color":"#fff"}).siblings().css({"background":"","color":""});
+		    	$('.liebiao_box li').eq(nav_crt_index).css("display","block").siblings().css("display","none");		    	
+		    });
+
+			//点击搜索按钮，出现搜索框，点击确定，搜索框关闭
+		    $(".btn_sousuo").click(function(event) {
+		    	if($(".daohang_search").is(':visible')){
+		    		$(".daohang_search").hide();
+		    	}else{
+		    		$(".daohang_search").show();
+		    	}
+		    });
+		    
+		    //默认点击地市
+		    $('.daohang_btn_l li').eq(0).click();
+		    
+		    var accessToken = getCookie('__accessToken');
+		    var onepassport_login_url = 'https://www.izyz.org.cn/account/login.html?appId=0101&finishurl=http://www.gdzyz.cn/index';
+		    
+		 // 获取当前时间戳(以s为单位)
+		    var timestamp = Date.parse(new Date());
+		    timestamp = timestamp / 1000;
+		    
+		    $("#loginTagA").attr("href", onepassport_login_url+"?accessTokenFlag=true&timestamp="+timestamp);
+		}); 
+	 
+	 function getCookie(name){ 
+			var strCookie=document.cookie; 
+			strCookie = strCookie.replace(/\"/g,"");
+			var arrCookie=strCookie.split("; ");
+			for(var i=0;i<arrCookie.length;i++){
+				var arr=arrCookie[i].split("="); 
+				if(arr[0]==name)return arr[1]; 
+			}
+			return ""; 
+		  }
+   </script> 
+
+
+
+
+           
+	
+
+
+
+
+
+
+
+
+
+
+<!--注册弹出页面 -->
+	<link href="/css/common/select-org/style.css" rel="stylesheet" type="text/css" />
+	<script src="/js/select-org/jquery.quicksearch.js" type="text/javascript"></script>
+	<script src="/js/select-org/pop_script.js" type="text/javascript"></script>
+
+    <div class="mc_sign_box" id="popbox">
+  		<div class="tbar" style="width:480px;">
+   			<span class="fl"><b>请选择相应的归属单位</b></span>
+   			<span class="rcloseBtn"><a href="#" id="select_org_btn_close" style="line-height: 0px;"><img src="/images/select-org/pimg_08.png" /></a></span>
+   		</div>
+		<div style="font-size:12px;">
+		    <div class="dataTable" >
+		      <div class="cont">
+		        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+		          <tr>
+		              <!--20160223修改-->
+		            <div class="Lnav ztgzxi">
+		            	<div class="Lmen_Tab">
+		                	<p class="item cur div_relative fl industryxi"><span><a href="javascript:void(0);" style="color:#fff;">地市</a></span><b class="arrow"></b></p>
+		                	<p class="item div_relative fl industryxi"><span><a href="javascript:void(0);" >行业</a></span></p>
+		                	<p class="item div_relative fl industryxi"><span><a href="javascript:void(0);" >高校</a></span></p>
+		                	<p class="item div_relative fl industryxi"><span><a href="javascript:void(0);" >其他</a></span></p>
+		              	</div>
+		            </div>
+                   <!--20160223修改结束-->
+		            <td class="RContent myRContent01" valign="top">
+		            	<div class="ItemTabox HangYeContainer">
+		               		<!-- <p style="padding-bottom:2px; "><input name="" type="text" id="jsSearch2" placeholder="输入关键词检索" autofocus />	</p> -->
+		               		
+		               		<!-- 地市 -->
+		                	<div  style="margin-top:5px" class=" cbox" id="jsDataTabe2">
+		                  		<div id="table02" >
+		                  			<div class="clear childCity"></div>
+		                  		</div>
+		                	</div>
+		                
+		                	<!-- 行业 -->
+		                	<div  style="margin-top:5px" class="cbox hide" id="jsDataTabe3">
+		                  		<div id="table03">
+		                  			<div class="cityxi011" style="width:450px; text-align:left;"><a title="其他" href="/site/personalRegister/register?districtId=">其他<span style="font-size:12px;color: #FF0000; margin-left:5px">（若找不到您的归属单位请选择）</span></a></div>
+		                   			</div>
+		                	</div>
+		                
+		                	<!-- 高校 -->
+		                	<div class="hide cbox" id="jsDataTabe4">
+                            
+		                  		<div id="table04" class="tableElement04">
+		                  			<li><a class="fl" style="color: #666;display: block;float: left; font-size: 14px; height: 25px; " title="其他" href="/site/personalRegisterAction/register?districtId=">其他<span style="font-size:12px;color: #FF0000;margin-left:5px">（若找不到您的归属单位请选择）</span></a></li>
+		                  		 	<div class="clear">
+		                  				
+		                  			</div>
+		                  			<li style=" height:1px; width:100%; margin-top:0px;border-bottom:1px dashed #e0e0e0;"></li>
+		                      	</div>
+		                	</div>
+		                	
+		                	<div  style="margin-top:5px" class="hide cbox" id="jsDataTabe5">
+		                  		<div id="table04">
+			                  		
+			                  		<a href="/site/personalRegister/register?districtId=402800e2446cffd501447154ac31000b">
+			                  	 		广东省志愿者联合会
+			                  	 	</a>
+			                  	 	<br>
+			                  	 	<a href="/site/personalRegister/register?districtId=8af4c1eb50510fca0150511c06350005" />
+			                  	 		广东省外组织和个人
+			                  	 	</a>
+		                      	</div>
+		                      	<br/>
+		                      	<div style="font-size:12px;color:red;line-height:22px">您注册信息将由归口单位负责审批 【如您在此架构中无法找到您的归口单位，请选择“广东省志愿者联合会”作为临时代管单位，待您的单位开通帐号后再做归口单位调整】</div>
+		                	</div>
+		                	 <!--20160223修改-->
+                          <p class="fesexi01"><input name="" type="text" id="jsSearch2" placeholder="输入关键词检索" autofocus /><a href="#" class="jsSearch03">搜索</a></p>
+                            <!--20160223修改结束-->
+			          	</div>
+		            </td>
+		          </tr>
+		        </table>
+		        <div class="clear"></div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		
+		<!-- 下载文件弹窗 -->
+	 <div class="mc_sign_box myMcSignBox01" id="popbox1" style="left: 506px; width:625px">
+  		<div class="tbar" style="height:37px; line-height:37px; padding:0 10px;background: url(/images/select-org/midbg_06.png) no-repeat; color:#fff;">
+   			<span class="fl"><b>下载材料</b></span>
+   			<span class="rcloseBtn"><a href="#" onclick="closenew();" id="select_org_btn_close1"><img src="/images/select-org/pimg_08.png" /></a></span>
+   		</div>
+		<div style="font-size:12px;">
+		    <div class="dataTable"  style="height:200px;width:470px;">
+		      <div class="cont">
+		        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+		          <tr>
+		            <td class="RContent" valign="top" style="height:70px; text-align:center;">
+
+		            <a href="http://gdftp.oss-cn-shenzhen.aliyuncs.com/temp/image/20170707/20170707085849_780“益苗计划”项目申报表.rar" style="display:inline-block; font-size: 18px;width:150px; height:60px; border:0; background-color:#f8c300;color: #fff">下载新增项目申报材料</a>
+		            </td>
+		            <td class="RContent" valign="top" style="height:70px; text-align:center;">
+
+		            <a href="http://gdftp.oss-cn-shenzhen.aliyuncs.com/temp/image/20170707/20170707090116_493持续扶持项目申报资料.rar" style="display:inline-block; font-size: 18px;width:150px; height:60px; border:0; background-color:#f8c300;color:#fff">下载持续扶持项目申报材料</a>
+		            </td>
+		          </tr>
+		           <tr><td colspan="2"  style="font-size: 15px;height:50px;" class="myTd03">
+		            <div><i style="color: red">备注:</i><p>1、项目类型为省级示范项目、重点培育项目/培育成长项目、公益创业赛，请下载新增项目申报材料；</p><p>2、项目类型为持续扶持项目，请下载持续扶持项目申报材料。</p></div>
+		           </td>
+		           </tr>
+		        </table>
+		        <div class="clear"></div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	
+	<!-- 下载文件弹窗 -->
+	 <div class="mc_sign_box" id="popbox2" style="left: 506px; width:625px">
+  		<div class="tbar" style="height:37px; line-height:37px; padding:0 10px;background: url(/images/select-org/midbg_06.png) no-repeat; color:#fff;">
+   			<span class="fl"><b>下载材料</b></span>
+   			<span class="rcloseBtn"><a href="#" onclick="closenew_wlwm();" id="select_org_btn_close1"><img src="/images/select-org/pimg_08.png" /></a></span>
+   		</div>
+		<div style="font-size:12px;">
+		    <div class="dataTable"  style="height:200px;">
+		      <div class="cont">
+		        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+		          <tr>
+		            <td class="RContent" valign="top" style="height:70px; text-align:center;">
+		            <a href="/download/web/contestWlwmMission/广东青少年网络文明志愿服务项目设计大赛示范项目申报表.doc" style="display:inline-block; font-size: 18px;width:150px; height:60px; border:0; background-color:#f8c300;color: #fff">下载示范项目申报材料</a>
+		            </td>
+		            <td class="RContent" valign="top" style="height:70px; text-align:center;">
+		            <a href="/download/web/contestWlwmMission/广东青少年网络文明志愿服务项目设计大赛优秀项目（创意）申报表.doc" style="display:inline-block; font-size: 18px;width:150px; height:60px; border:0; background-color:#f8c300;color:#fff">下载优秀项目申报材料</a>
+		            </td>
+		          </tr>
+		           <tr><td colspan="2"  style="font-size: 15px;height:50px;">
+		            <p><i style="color: red">备注:</i>1、项目类别为省级示范项目、优秀项目，请下载新增项目申报材料；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+		           </td>
+		           </tr>
+		        </table>
+		        <div class="clear"></div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	<script type="text/javascript">
+// 		$(function () {
+// 			$('input#jsSearch').quicksearch('#jsDataTabel table tbody tr');
+// 			$('input#jsSearch2').quicksearch('#jsDataTabe2 div a');
+// 			$('input#jsSearch2').quicksearch('#jsDataTabe3 div a');
+// 			$('input#jsSearch2').quicksearch('#jsDataTabe4 div a');
+// 			$('input#jsSearch2').quicksearch('#jsDataTabe5 a');
+// 		});
+	</script>
+
+
+
+<script type="text/javascript">
+		function closeAllHint() {
+			$(".new_pic").hide();
+			$(".new-nav").hide();
+			$(".zz-nav").hide();
+		}
+
+		function closePhotoHint() {
+			$(".new_pic").hide();
+			$(".new-nav").hide();
+		}
+
+		function closeCoordinateHint() {
+			$(".new_pic").hide();
+			$(".zz-nav").hide();
+		}
+	</script>
+	<input type="hidden" value="" id="path" />
+	<input type="hidden" value="http://gdftp.oss-cn-shenzhen.aliyuncs.com" id="uploadPath" />
+	<input type="hidden" value="" id="isViewSelf" />
+	<article id="container">
+		<section id="content" style="position:relative;width:1200px">
+			<section class="compoent ">
+				<blockquote class="u_breadNav clearfix">
+					<span class="fl"><a href="/index">首页</a>&lt;<a
+						href="/usmain/usMain/list" style="color:black"
+						onmouseover="this.style='color:#4abae3;'"
+						onmouseout="this.style='color:black;'">用户中心</a></span> <span
+						class="U_soso">
+<!-- 						<form name="u_soso" id="main_username_search" -->
+
+<!-- 							method="post"> -->
+							
+
+<!-- 							font-size: 12px;color: #999;padding-left:30px;" class="sk_1 inputfoucs" name="userName"> -->
+							
+							
+<!-- 								<input type="button" onclick="checkUserSearchForm();" style="height:30px;width: auto; -->
+<!-- 								padding-right: 10px;" value="搜索" class="sk_2" id="button" name="button"> -->
+<!-- 						</form> -->
+					</span>
+				</blockquote>
+				<aside class="fl column_212">
+					<article class="compoent white_bg border">
+
+
+						<div class="usehead">
+							<p class="u_head">
+								<a href="javascript:void(0);" onclick="popupDivImg('uploadProfilePhoto','','profilePhoto')" >
+									 
+										<img src="/images/site/gq.jpg"
+											onload="AutoResizeImage(146,146,this)" />
+									
+								</a>
+							</p>
+							<!--志愿资讯等比缩小-->
+							<script type="text/javascript">
+								function AutoResizeImage(maxWidth, maxHeight,
+										objImg) {
+									var img = new Image();
+
+									img.src = objImg.src;
+									var hRatio;
+									var wRatio;
+									var Ratio = 1;//比例
+									var w = img.width;
+									var h = img.height;
+									wRatio = maxWidth / w;
+									hRatio = maxHeight / h;
+
+									if (maxWidth == 0 && maxHeight == 0)//图片
+									{
+										Ratio = 1;
+									}
+
+									else if (maxWidth == 0) {
+
+										if (hRatio < 1)
+											Ratio = hRatio;
+									}
+
+									else if (maxHeight == 0) {
+										if (wRatio < 1)
+											Ratio = wRatio;
+									} else if (wRatio < 1 || hRatio < 1) {
+										Ratio = (wRatio <= hRatio ? wRatio
+												: hRatio);
+									}
+
+									if (Ratio < 1) {
+										w = w * Ratio;
+										h = h * Ratio;
+									}
+									objImg.height = h;
+									objImg.width = w;
+
+								}
+							</script>
+
+							<p class="set_header">林康颖&nbsp;
+								<a href="javascript:void(0);" onclick="popupDivImg('uploadProfilePhoto','','profilePhoto')" ><img
+									src="/images/space0_27.jpg" /></a>
+							</p>
+
+						</div>
+						<div class="myBadge">
+			                
+			                 
+<!-- 			                 	 <div class="myAttion clearfix"> -->
+<!-- 				              		<dl> -->
+
+<!-- 				                      <dd>关注</dd> -->
+<!-- 				                    </dl> -->
+<!-- 				                    <dl> -->
+
+<!-- 				                      <dd>粉丝</dd> -->
+<!-- 				                    </dl> -->
+<!-- 				                    <dl class="last"> -->
+
+<!-- 				                      <dd>微博</dd> -->
+<!-- 				                    </dl> -->
+<!-- 				                 </div> -->
+			                 
+			                 
+			               </div>
+					</article>
+					
+						<article class="compoent white_bg border">
+			        		<header class="tbar_shuju clearfix"><span class="title_shuju">业务功能</span> </header>
+			          		<section class="function">
+			            		<ul>
+			            		  
+			            		  	
+			            		  	
+			              			<li class="wszl"><a href="/usmain/usMain/update?type=setIdentity&districtId=" class="fl">完善资料</a></li>
+			              			
+			              				<li class="wszl"><a href="javascript:void(0)" onclick="oneCenterSkip()" class="fl">一号通个人中心</a></li>
+			              			
+			              			<li class="wdxm"><a href="/usmain/usMain/listMyMission?type=myMission&districtId=" class="fl">我的项目</a></li>
+			              			<li class="cardap"><a onclick="applyCard('/card/cardLog/applyVolunteerCard?type=applyCertificate&districtId=')" class="fl">申请志愿者证</a></li>
+			              			<li class="cardpr"><a href="/card/cardLog/showCardLogMessage?type=applySchedule&districtId=" class="fl">志愿者证申请进度</a></li>
+			              			
+									<li class="fwjl"><a href="/usmain/usMain/listServiceLog?type=missionServiceRecord&districtId=" class="fl">服务记录</a></li>
+			              			<li class="wdwb"><a href="/usmain/usMain/list?type=weiboList&districtId=&userId=" class="fl">我的微博</a></li>
+									<li class="sbgs"><a href="/srvpg/showsrvpg" class="fl" target="_blank">我的证书</a></li>
+			              		  	
+			              		  
+								  
+
+			            		</ul>
+			          		</section>
+			        	</article>
+					
+					
+						<article class="compoent white_bg border">
+							<header class="tbar_shuju clearfix">
+								<span class="title_shuju">数据统计</span>
+							</header>
+							<section class="ourInfor">
+								<ul>
+									<li class="longTime">志愿时长 <i>
+										25小时30分
+									</i>
+									</li>
+									<li class="Topranking">个人排名 暂无排名</li>
+									<li class="jficon">志愿积分&nbsp; <i>25.5</i>分
+									</li>
+									<li class="v_value">V值&nbsp;<i>25.5</i></li>
+									
+								</ul>
+							</section>
+						</article>
+					
+					
+				</aside>
+				<section class="column_775 fr spe_app ">
+
+					
+					  
+                   
+              		 
+	             
+            
+            
+
+
+
+					
+					
+					
+<!-- 服务记录 -->
+					
+						
+
+
+
+
+
+
+
+
+
+
+
+    <!--[if IE]>
+    <script src="/js/html5.js"></script>
+    <![endif]-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+	    <link href="/css/common/management.css" rel="stylesheet" type="text/css">
+		<link href="/css/common/pager_tag.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="/js/common/pager_tag.js"></script>
+		<script type="text/javascript" src="/js/common/tool_tip_tag.js"></script>
+	
+	<div class="tabContent">
+     <div class="tabCont">
+    <table width="100%" border="0" class="table1 fxTable">
+      <tr>
+        <th style="text-align: center;">活动主题</th>
+        <th style="text-align: center;">队伍名称</th>
+        <th style="text-align: center;">队员名称 </th>
+        <th style="text-align: center;">考勤日</th>
+        <th style="text-align: center;">请假</th>
+        <th style="text-align: center;">服务时长</th>
+        <th style="text-align: center;">迟到</th>
+        <th style="text-align: center;">早退</th>
+        <th style="text-align: center;">确认</th>
+      </tr>
+      
+      
+      <tr class="trbg">
+        <td style="text-align: center;"><span class="pop_titleBox " content="【华南理工大学电子与信息学院】2015下半年课后辅导活动志愿时补录">【华南理工大学电子与信息学院】2015下…</span></td>
+        <td style="text-align: center;">大队</td>
+        <td style="text-align: center;">林康颖</td>
+        <td style="text-align: center;">2015-12-03</td>
+        <td style="text-align: center;">
+        	
+				正常出勤
+				
+				
+			
+        </td>
+        <td style="text-align: center;">
+        	02:30
+        </td>
+        <td style="text-align: center;">
+        	00:00
+        </td>
+        <td style="text-align: center;">
+        	00:00
+        </td>
+        <td style="text-align: center;">
+        	
+				已确认
+				
+			
+        </td>
+      </tr>
+       
+      <tr class="trbg">
+        <td style="text-align: center;"><span class="pop_titleBox " content="【华南理工大学电子与信息学院】培智学校探访活动志愿时补录">【华南理工大学电子与信息学院】培智学校探…</span></td>
+        <td style="text-align: center;">培智小队</td>
+        <td style="text-align: center;">林康颖</td>
+        <td style="text-align: center;">2016-04-30</td>
+        <td style="text-align: center;">
+        	
+				正常出勤
+				
+				
+			
+        </td>
+        <td style="text-align: center;">
+        	04:00
+        </td>
+        <td style="text-align: center;">
+        	00:00
+        </td>
+        <td style="text-align: center;">
+        	00:00
+        </td>
+        <td style="text-align: center;">
+        	
+				已确认
+				
+			
+        </td>
+      </tr>
+       
+      <tr class="trbg">
+        <td style="text-align: center;"><span class="pop_titleBox " content="【华南理工大学电子与信息学院】昊琛养老院志愿时补录">【华南理工大学电子与信息学院】昊琛养老院…</span></td>
+        <td style="text-align: center;">探访大队</td>
+        <td style="text-align: center;">林康颖</td>
+        <td style="text-align: center;">2016-04-19</td>
+        <td style="text-align: center;">
+        	
+				正常出勤
+				
+				
+			
+        </td>
+        <td style="text-align: center;">
+        	04:00
+        </td>
+        <td style="text-align: center;">
+        	00:00
+        </td>
+        <td style="text-align: center;">
+        	00:00
+        </td>
+        <td style="text-align: center;">
+        	
+				已确认
+				
+			
+        </td>
+      </tr>
+       
+      <tr class="trbg">
+        <td style="text-align: center;"><span class="pop_titleBox " content="【华南理工大学电子与信息学院】全国电子设计大赛广东赛区志愿者志愿时补录">【华南理工大学电子与信息学院】全国电子设…</span></td>
+        <td style="text-align: center;">电设志愿者</td>
+        <td style="text-align: center;">林康颖</td>
+        <td style="text-align: center;">2016-08-25</td>
+        <td style="text-align: center;">
+        	
+				正常出勤
+				
+				
+			
+        </td>
+        <td style="text-align: center;">
+        	10:00
+        </td>
+        <td style="text-align: center;">
+        	00:00
+        </td>
+        <td style="text-align: center;">
+        	00:00
+        </td>
+        <td style="text-align: center;">
+        	
+				已确认
+				
+			
+        </td>
+      </tr>
+       
+      <tr class="trbg">
+        <td style="text-align: center;"><span class="pop_titleBox " content="【华南理工大学电子与信息学院】全国电子设计大赛广东赛区志愿者志愿时补录">【华南理工大学电子与信息学院】全国电子设…</span></td>
+        <td style="text-align: center;">电设志愿者</td>
+        <td style="text-align: center;">林康颖</td>
+        <td style="text-align: center;">2016-08-26</td>
+        <td style="text-align: center;">
+        	
+				正常出勤
+				
+				
+			
+        </td>
+        <td style="text-align: center;">
+        	05:00
+        </td>
+        <td style="text-align: center;">
+        	00:00
+        </td>
+        <td style="text-align: center;">
+        	00:00
+        </td>
+        <td style="text-align: center;">
+        	
+				已确认
+				
+			
+        </td>
+      </tr>
+       
+     
+    </table>
+    <div class="pages ser-pages"><div class="pages-infos"><div class="mod-pages" style="line-height:28px;height:28px;" ><span style="float:left;">每页显示:</span><select onchange="window.location.href=('/usmain/usMain/listServiceLog?type=missionServiceRecord&amp;districtId=&amp;pageNo=1&amp;pageSize=' + this.options[this.options.selectedIndex].value);" style="float:left;display:inline;background-color:#fff;height:26px;padding:0 2px;border:1px #e6e6e6 solid;margin-right:4px;" name="dynamic_length" onchange="changePageSize(this)"><option value="5" >5</option><option value="10" selected="selected">10</option><option value="20" >20</option><option value="50" >50</option><option value="100" >100</option></select><a href="javascript:;" style="color: #999999;cursor: not-allowed;background-color: #ffffff;border-color: #dddddd;">&lt; 上页</a><a href="/usmain/usMain/listServiceLog?type=missionServiceRecord&amp;districtId=&amp;pageSize=10&amp;pageNo=1" class="cur">1</a><a href="/usmain/usMain/listServiceLog?type=missionServiceRecord&amp;districtId=&amp;pageSize=10&amp;pageNo=2">2</a><a href="/usmain/usMain/listServiceLog?type=missionServiceRecord&amp;districtId=&amp;pageSize=10&amp;pageNo=3">3</a><a href="/usmain/usMain/listServiceLog?type=missionServiceRecord&amp;districtId=&amp;pageSize=10&amp;pageNo=4">4</a><a href="/usmain/usMain/listServiceLog?type=missionServiceRecord&amp;districtId=&amp;pageSize=10&amp;pageNo=5">5</a><a href="/usmain/usMain/listServiceLog?type=missionServiceRecord&amp;districtId=&amp;pageSize=10&amp;pageNo=6">6</a><a href="/usmain/usMain/listServiceLog?type=missionServiceRecord&amp;districtId=&amp;pageSize=10&amp;pageNo=7">7</a><a href="/usmain/usMain/listServiceLog?type=missionServiceRecord&amp;districtId=&amp;pageSize=10&amp;pageNo=2">下一页 &gt;</a></div></div></div>
+      </div>
+   </div>
+  
+					
+					
+<!-- 我的微博 -->
+					
+<!-- 申请志愿者证 -->
+					
+					
+<!-- 申请志愿者证进度查询 -->
+					
+					
+					
+					
+					
+<!-- 志愿者搜索 -->
+					
+					
+					
+					
+<!--  完善资料页面 -->					
+					
+					
+					
+					
+<!-- 我的项目 -->		
+								
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+				</section>
+			</section>
+		</section>
+		<div class="clear"></div>
+	</article>
+	<link href="/css/newRegistercss/style.css" rel="stylesheet" type="text/css" />
+	<s:include value="/newIndex/common-gdFooter.jsp"></s:include>
+	<script type="text/javascript">
+		$(function() {
+			var str = '搜索志愿者';
+			$('.u_input').focus(function() {
+
+				if ($(this).val() == str) {
+					$(this).val('')
+				}
+			}).keydown(function() {
+				$(this).css('color', '#333')
+
+			}).blur(function() {
+				if ($(this).val() == '') {
+					$(this).val(str);
+					$(this).css('color', '#999')
+				}
+
+			})
+
+		})
+		function checkUserSearchForm() {
+			var name = $("#userName").val();
+			if (name == '' || name == null) {
+				alert("请输入用户名称!");
+				return false;
+			}
+			$("#main_username_search").submit();
+		}
+
+		$(document).ready(function() {
+			if (true) {
+				/* $.getJSON("/user_rank.action", {
+					userId : ""
+				}, function(data) {
+					if (data.handler == "success" && data.rank > 0)
+						$(".Topranking").empty();
+					$(".Topranking").append("个人排名 <i>" + data.rank + "</i>名");
+				}); */
+			}
+			var hint = '';
+			var coordinateHint = '';
+			if (hint != '' && hint == '1') {
+				$(".new_pic").show();
+				$(".new-nav").show();
+			} else if (coordinateHint == '1') {
+				$(".new-nav").hide();
+			} else {
+				$(".new_pic").hide();
+				$(".new-nav").hide();
+			}
+
+			if (coordinateHint == '1') {
+				$(".new_pic").show();
+				$(".zz-nav").show();
+			} else if (hint == '1') {
+				$(".zz-nav").hide();
+			} else {
+				$(".new_pic").hide();
+				$(".zz-nav").hide();
+			}
+		})
+		
+		function applyCard(url){
+			$.getJSON("/bankApplyCard/checkHasApplied",function(data){
+				var b = data.result;
+				if(b){
+					alert("您已经申请过志愿者证，请不要重复申请！");
+				}else{
+					window.location.href=url;
+				}
+		 	});
+		}
+	</script>
+	<section class="darkCover" id="darkCover" style="display:none">
+        <img src="/images/card/loading01.svg" alt="" />
+    </section>
+    <!-- 测试遮罩 -->
+ <div id="ceshi" class="ceshi" style="display: none">
+        <div class="ceshi_paper clearfix">
+            <img class="pic_man fl" src="/izyz-tanchuang/images/man.png" alt="" />
+            <div class="ceshi_box fl">
+                <p>	    
+                	“注册志愿者证”是志愿者的专属身份凭证，整合为志愿者提供身份识别、服务记录查询、保险服装保障、金融消费、公共交通、爱心优惠、公益捐赠等服
+					务。为保障您的权益和激励享用，请点击&nbsp;<a href="/card/cardLog/applyVolunteerCard?type=applyCertificate&districtId="><font color="blue">此处</font></a>&nbsp;申办“注册志愿者证”。
+                </p>
+			
+                <div class="ceshi_erweima">
+                </div>
+            </div>
+
+            <a class="ceshi_del" href="javascript:;"><img src="/izyz-tanchuang/images/del.png" alt="" /></a>
+
+        </div>
+</div>
+</body>
+</html>

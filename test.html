@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>这是标题</title>
+	<link rel="stylesheet" type="text/css" href="common.css">
+	<link rel="stylesheet" type="text/css" href="button.css">
+</head>
+<body>
+<div class="title" color="#6bae40" font-size="36">查询</div>
+
+<div class="input_g" id="input_g" style="display:block">
+<input type="text" value="493748267@qq.com" name="id" id="id" class="input" placeholder="手机号码/身份证号码/邮箱">
+<input type="password" value="lky86316337" name="pwd" id="pwd" class="input" placeholder="密码">
+<input type="text" name="yzm" id="yzm" class="input" placeholder="验证码">
+<img id="imgyzm" style="vertical-align:middle;display: inline; vertical-align: middle; margin-top: -5px;" height="40" width="90">
+</div>
+
+<div class="btn_center">
+	<button id="btn" class="button button-glow button-border button-rounded button-primary btn">查询</button>
+</div>
+<br>
+
+<table width="90%" class="table" id="table"> 
+</table>
+<br>
+<div id="res" style="text-align: center;font-family:arial;color:#6bae40;font-size: 15px;"></div>
+
+<div style="text-align: center;margin: 30px auto;">   
+	<span style="font-family:arial;">Copyright ©2017</span>
+</div>
+
+<!-- jQuery -->
+<script src="jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="prelogin.php"></script><!--登陆前先执行prelogin.php获得验证码和cookie到目录中-->
+<script type="text/javascript">
+	var login=0;
+	var i =25;
+	var btn = document.getElementById("btn");
+	var res = document.getElementById("res");
+	var imgyzm = document.getElementById("imgyzm");
+	var view="";
+	var url_c="";
+	var trys = 0;
+	var temp;
+    var status = 0;
+	btn.addEventListener("click",post);
+	document.getElementById("table").innerHTML = "<tr><td class=\"alter\">活动主题</td><td class=\"alter\">队伍名称</td><td class=\"alter\">队员名称</td><td class=\"alter\">考勤日</td><td class=\"alter\">志愿时长</td></tr>"
+	imgyzm.src = "curl.jpeg";
+	function post()
+	{
+		res.innerHTML = "";
+		trys = 0;
+		if(status==1)
+		{
+			//Login();
+			btn.disabled=true;
+		}else
+		{
+			var id = document.getElementById("id").value;
+			var pwd = document.getElementById("pwd").value;
+			var yzm = document.getElementById("yzm").value;
+			if(id==""||pwd=="")
+				{
+					alert("请填写完整信息");
+					return ;
+				}
+			btn.disabled=true;//查询按钮不可按
+			$.ajax({
+                //提交数据的类型 POST GET
+                type:"POST",
+                //提交的网址
+                url:"login.php",
+                //提交的数据
+                data:{"id":id,"pwd":pwd,"yzm":yzm},//提交用户名和密码给save.php 返回data.status
+                //返回数据的格式
+                dataType: "json",//"xml", "html", "script", "json", "jsonp", "text". 预期服务器返回的数据类型。
+                //在请求之前调用的函数
+                beforeSend:function(){},
+                //成功返回之后调用的函数             
+                success:function(data){
+                	alert(data.status);
+                    	if(data.status==302){
+                        $("#input_g")[0].innerHTML=''
+                        
+                        //alert("登陆成功");
+                        res.innerHTML+="登陆成功<br>"
+                        gethours();
+                        
+                    }else{
+                    	btn.disabled=false;
+                    	$("#input_g")[0].innerHTML='<input type="text" name="id" id ="id" class="input" placeholder="学号">\n<input type="text" name="name" id="name" class="input" placeholder="密码">'
+                        alert("服务器出错");
+                    }
+                },
+                //调用执行后调用的函数
+                complete: function(XMLHttpRequest, textStatus){
+                    // console.log(XMLHttpRequest.responseText);
+                    // console.log(textStatus);
+                    //HideLoading();
+                },
+                //调用出错执行的函数
+                error: function(jqXHR, textStatus, errorThrown){
+                    //请求出错处理
+                    console.log(errThrown);
+                    alert("服务器出错!");
+                    $("#input_g")[0].innerHTML='<input type="text" name="id" id ="id" class="input" placeholder="学号">\n<input type="text" name="name" id="name" class="input" placeholder="密码">'
+                	}         
+            });
+		}
+	}
+	function gethours(){
+		var id = '111';
+		var pwd = '222';
+		var yzm = '333';
+		$.ajax({
+
+	                //提交数据的类型 POST GET
+	                type:"POST",
+	                //提交的网址
+	                url:"gethours.php",
+	                //提交的数据
+	                data:{"id":id,"pwd":pwd,"yzm":yzm},//提交用户名和密码给save.php 返回data.status
+	                //返回数据的格式
+	                dataType: "json",//"xml", "html", "script", "json", "jsonp", "text". 预期服务器返回的数据类型。
+	                //在请求之前调用的函数
+	                beforeSend:function(){},
+	                //成功返回之后调用的函数             
+	                success:function(data){
+	                	  //alert(data.length);
+	                	  res.innerHTML+="查询成功<br>";
+	                for(var i =data.length-1;i>=0;i--)
+					{
+						var content = "";
+						content+="<tr>";
+						content+="<td>"+data.theme[i]+"</td>";
+						content+="<td>"+data.teamname[i]+"</td>";
+						content+="<td>"+data.name[i]+"</td>";
+						content+="<td>"+data.date[i]+"</td>";
+						content+="<td>"+data.acttime[i]+"</td>";
+						content+="</tr>";
+						table.innerHTML+=content;
+					}
+	    //             if(data.status==1)
+					// {
+					// 	res.innerHTML+="查询成功<br>";
+					// 	var table = document.getElementById("table");
+					// 	if(data.result.length==0)
+					// 	{
+					// 		res.innerHTML+="外网教务入口已崩<br>";
+					// 	}
+					// 	for(var i =data.result.length-1;i>=0;i--)
+					// 	{
+					// 		var content = "";
+					// 		content+="<tr>";
+					// 		content+="<td>"+data.result[i].name+"</td>";
+					// 		content+="<td>"+data.result[i].score+"</td>";
+					// 		content+="<td>"+data.result[i].rank+"</td>";
+					// 		content+="<td>"+data.result[i].gpa+"</td>";
+					// 		content+="<td>"+data.result[i].point+"</td>";
+					// 		content+="</tr>";
+					// 		table.innerHTML+=content;
+					// 	}
+					// }
+					// else
+					// {
+					// 	res.innerHTML+="查询失败，可能当前查询人数过多，请刷新重试！<br>";
+					// }
+		                },
+		                //调用执行后调用的函数
+		                complete: function(XMLHttpRequest, textStatus){
+		                    // console.log(XMLHttpRequest.responseText);
+		                    // console.log(textStatus);
+		                    //HideLoading();
+		                },
+		                //调用出错执行的函数
+		                error: function(jqXHR, textStatus, errorThrown){
+		                    //请求出错处理
+		                    console.log(errThrown);
+		                    alert("服务器出错!");
+		                    $("#input_g")[0].innerHTML='<input type="text" name="id" id ="id" class="input" placeholder="学号">\n<input type="text" name="name" id="name" class="input" placeholder="密码">'
+		                	}         
+	            });
+	}
+</script>
+
+
+</body>
+</html>
